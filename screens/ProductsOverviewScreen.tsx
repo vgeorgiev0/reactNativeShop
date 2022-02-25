@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 type Props = {};
 
 const ProductsOverviewScreen = (props: Props) => {
+  //@ts-ignore
   const products = useSelector((state) => state.products.availableProducts);
   return (
     <View>
