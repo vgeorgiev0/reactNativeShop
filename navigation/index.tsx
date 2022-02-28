@@ -92,7 +92,18 @@ function RootNavigator() {
         options={{ title: 'Oops!' }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name='Cart' component={CartScreen} />
+        <Stack.Screen
+          name='Cart'
+          component={CartScreen}
+          options={({}) => ({
+            headerTitleStyle: {
+              color: Colors.primary,
+              fontSize: 24,
+              paddingHorizontal: 25,
+              fontFamily: 'open-sans-bold',
+            },
+          })}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -109,20 +120,11 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='TabOne'
+      initialRouteName='ProductsOverview'
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors.primary,
       }}
     >
-      <BottomTab.Screen
-        name='TabOne'
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-          headerRight: () => <HeaderButton navigation={navigation} />,
-        })}
-      />
       <BottomTab.Screen
         name='ProductsOverview'
         component={ProductsOverviewScreen}
@@ -134,12 +136,20 @@ function BottomTabNavigator() {
             paddingHorizontal: 25,
             fontFamily: 'open-sans-bold',
           },
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name='code' color={Colors.primary} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerRight: () => <HeaderButton navigation={navigation} />,
         })}
       />
+      <BottomTab.Screen
+        name='TabOne'
+        component={TabOneScreen}
+        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+          title: 'Tab One',
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+          headerRight: () => <HeaderButton navigation={navigation} />,
+        })}
+      />
+
       {/* <BottomTab.Screen
         name='TabTwo'
         component={TabTwoScreen}
