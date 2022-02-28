@@ -12,21 +12,24 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Dimensions, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+// import TabTwoScreen from '../screens/TabTwoScreen';
 import ProductsOverviewScreen from '../screens/ProductsOverviewScreen';
+import ProductDetailScreen from '../screens/ProductDetailScreen';
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+
+const { width } = Dimensions.get('window');
 
 export default function Navigation({
   colorScheme,
@@ -55,7 +58,27 @@ function RootNavigator() {
       <Stack.Screen
         name='Root'
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerTitleStyle: {
+            fontFamily: 'open-sans-bold',
+            color: Colors.primary,
+          },
+        }}
+      />
+      <Stack.Screen
+        name='ProductDetail'
+        component={ProductDetailScreen}
+        options={({ route }) => ({
+          title: route.params.productTitle,
+          headerTitleStyle: {
+            fontFamily: 'open-sans-bold',
+            color: Colors.primary,
+          },
+          headerBackTitleStyle: {
+            fontFamily: 'open-sans',
+          },
+        })}
       />
       <Stack.Screen
         name='NotFound'
@@ -91,31 +114,55 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name='info-circle'
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate('Modal')}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <FontAwesome
+          //       name='info-circle'
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
-        name='TabTwo'
+        name='ProductsOverview'
         component={ProductsOverviewScreen}
+        options={{
+          title: 'Products Overview',
+          headerTitleStyle: {
+            color: Colors.primary,
+            fontSize: 24,
+            paddingHorizontal: 25,
+            fontFamily: 'open-sans-bold',
+          },
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='code' color={Colors.primary} />
+          ),
+        }}
+      />
+      {/* <BottomTab.Screen
+        name='TabTwo'
+        component={TabTwoScreen}
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
         }}
-      />
+      /> */}
+      {/* <BottomTab.Screen
+        name='ProductDetail'
+        component={ProductDetailScreen}
+        options={{
+          title: 'Product Detail',
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+        }}
+      /> */}
     </BottomTab.Navigator>
   );
 }
