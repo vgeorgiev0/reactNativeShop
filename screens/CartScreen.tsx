@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
 import CartItem from '../components/shop/CartItem';
 import * as cartActions from '../store/actions/cart';
+import * as ordersActions from '../store/actions/order';
 
 interface CartScreen {}
 
@@ -51,7 +52,7 @@ const CartScreen: React.FC<CartScreen> = () => {
         <Button
           color={Colors.primary}
           onPress={() => {
-            console.log('Ordered');
+            dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
           }}
           title='Order Now'
           disabled={cartItems.length === 0}
