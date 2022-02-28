@@ -7,16 +7,16 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import ProductItem from '../components/shop/ProductItem';
-import { CommonActions } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
+import * as cartActions from '../store/actions/cart';
 
-const ProductDetailScreen = ({ route, navigation }: any) => {
+const ProductDetailScreen = ({ route }: any) => {
   const { productId } = route.params;
   const selectedProduct = useSelector((state: any) =>
     state.products.availableProducts.find((prod: any) => prod.id === productId)
   );
+  const dispatch = useDispatch();
 
   return (
     <View>
@@ -30,7 +30,7 @@ const ProductDetailScreen = ({ route, navigation }: any) => {
             color={Colors.primary}
             title='Add to Cart'
             onPress={() => {
-              console.log('ADD');
+              dispatch(cartActions.addToCart(selectedProduct));
             }}
           />
         </View>
