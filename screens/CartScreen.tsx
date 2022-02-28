@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
 import CartItem from '../components/shop/CartItem';
+import * as cartActions from '../store/actions/cart';
 
 interface CartScreen {}
 
@@ -26,15 +27,26 @@ const CartScreen: React.FC<CartScreen> = () => {
         sum: state.cart.items[key].sum,
       });
     }
-    return transformedCartItems;
+    return transformedCartItems.sort((a, b) =>
+      a.productId > b.productId ? 1 : -1
+    );
   });
+  const dispatch = useDispatch();
+
+  const truncate = (string: string) => {
+    if (string.length > 16) {
+      string = string.substring(0, 17) + '..';
+    }
+  };
 
   return (
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>
           Total:{'  '}
-          <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text>
+          <Text style={styles.amount}>
+            ${cartTotalAmount >= 0 ? cartTotalAmount.toFixed(2) : '0.00'}
+          </Text>
         </Text>
         <Button
           color={Colors.primary}
@@ -52,9 +64,13 @@ const CartScreen: React.FC<CartScreen> = () => {
           <CartItem
             amount={itemData.item.sum}
             quantity={itemData.item.quantity}
-            title={itemData.item.productTitle}
+            title={
+              itemData.item.productTitle.length > 16
+                ? itemData.item.productTitle.substring(0, 16) + '...'
+                : itemData.item.productTitle
+            }
             onRemove={() => {
-              console.log('remove');
+              dispatch(cartActions.removeFromCart(itemData.item.productId));
             }}
           />
         )}
