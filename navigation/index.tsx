@@ -28,6 +28,8 @@ import {
 import LinkingConfiguration from './LinkingConfiguration';
 import CartScreen from '../screens/CartScreen';
 import HeaderButton from '../components/UI/HeaderButton';
+import OrdersScreen from '../screens/OrdersScreen';
+import HeaderOrdersButton from '../components/UI/HeaderOrdersButton';
 
 const { width } = Dimensions.get('window');
 
@@ -84,12 +86,14 @@ function RootNavigator() {
             fontFamily: 'open-sans',
           },
           headerRight: () => <HeaderButton navigation={navigation} />,
+          // headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
+
       <Stack.Screen
-        name='NotFound'
-        component={NotFoundScreen}
-        options={{ title: 'Oops!' }}
+        name='OrdersScreen'
+        component={OrdersScreen}
+        options={{ title: 'Your Order' }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
@@ -133,11 +137,12 @@ function BottomTabNavigator() {
           headerTitleStyle: {
             color: Colors.primary,
             fontSize: 24,
-            paddingHorizontal: 25,
+            paddingHorizontal: 10,
             fontFamily: 'open-sans-bold',
           },
           tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerRight: () => <HeaderButton navigation={navigation} />,
+          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
       <BottomTab.Screen
@@ -147,6 +152,7 @@ function BottomTabNavigator() {
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerRight: () => <HeaderButton navigation={navigation} />,
+          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
 
