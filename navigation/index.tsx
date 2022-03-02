@@ -5,6 +5,8 @@
  */
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import {
   NavigationContainer,
   DefaultTheme,
@@ -53,6 +55,8 @@ export default function Navigation({
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const Drawer = createDrawerNavigator();
 
 function RootNavigator() {
   return (
@@ -155,23 +159,6 @@ function BottomTabNavigator() {
           headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
-
-      {/* <BottomTab.Screen
-        name='TabTwo'
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-        }}
-      /> */}
-      {/* <BottomTab.Screen
-        name='ProductDetail'
-        component={ProductDetailScreen}
-        options={{
-          title: 'Product Detail',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-        }}
-      /> */}
     </BottomTab.Navigator>
   );
 }

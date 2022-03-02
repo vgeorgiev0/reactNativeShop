@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
 import ordersReducer from './store/reducers/order';
+import 'react-native-gesture-handler';
 
 const rootReducer = combineReducers({
   products: productsReducer,
