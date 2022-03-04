@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
 import CartItem from '../components/shop/CartItem';
 import * as cartActions from '../store/actions/cart';
-import * as ordersActions from '../store/actions/order';
+import * as ordersActions from '../store/actions/orders';
 
 interface CartScreen {}
 
@@ -33,12 +33,6 @@ const CartScreen: React.FC<CartScreen> = (props: any) => {
     );
   });
   const dispatch = useDispatch();
-
-  const truncate = (string: string) => {
-    if (string.length > 16) {
-      string = string.substring(0, 17) + '..';
-    }
-  };
 
   return (
     <View style={styles.screen}>

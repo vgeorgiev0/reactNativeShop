@@ -1,13 +1,20 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProductItem from '../components/shop/ProductItem';
+import Colors from '../constants/Colors';
+import * as productsActions from '../store/actions/products';
 
-type Props = {};
-
-const UserProductsScreen = (props: Props) => {
+const UserProductsScreen = (props: any) => {
   // @ts-ignore
   const userProducts = useSelector((state) => state.products.userProducts);
+  const editProductHandler = (id: string, title: string) => {
+    props.navigation.navigate('EditProductScreen', {
+      productId: id,
+      productTitle: title,
+    });
+  };
+  const dispatch = useDispatch();
 
   return (
     <View>
@@ -16,16 +23,31 @@ const UserProductsScreen = (props: Props) => {
         keyExtractor={(item) => item.id}
         renderItem={(itemData) => (
           <ProductItem
-            onAddToCart={() => {
-              console.log('s');
-            }}
-            onViewDetails={() => {
-              console.log('s');
+            onSelect={() => {
+              editProductHandler(itemData.item.id, itemData.item.productTitle);
             }}
             price={itemData.item.price}
             title={itemData.item.title}
             image={itemData.item.imageUrl}
-          />
+          >
+            <Button
+              color={Colors.primary}
+              title='Edit'
+              onPress={() => {
+                editProductHandler(
+                  itemData.item.id,
+                  itemData.item.productTitle
+                );
+              }}
+            />
+            <Button
+              color={Colors.primary}
+              title='Delete'
+              onPress={() => {
+                dispatch(productsActions.deleteProduct(itemData.item.id));
+              }}
+            />
+          </ProductItem>
         )}
       />
     </View>

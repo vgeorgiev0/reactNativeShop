@@ -5,21 +5,21 @@ import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 
 interface HeaderButton {
-  navigation: any;
+  props: any;
 }
 
-const HeaderButton: React.FC<HeaderButton> = ({ navigation }) => {
+const HeaderButton: React.FC<HeaderButton> = (props: any) => {
   const colorScheme = useColorScheme();
   return (
     <View>
       <Pressable
-        onPress={() => navigation.navigate('Cart')}
+        onPress={props.onPress}
         style={({ pressed }) => ({
           opacity: pressed ? 0.5 : 1,
         })}
       >
         <FontAwesome
-          name='shopping-cart'
+          name={props.icon}
           size={25}
           color={Colors[colorScheme].text}
           style={{ marginRight: 15 }}

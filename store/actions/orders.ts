@@ -1,6 +1,6 @@
 export const ADD_ORDER = 'ADD_ORDER';
 
-// @ts-ignore
+//@ts-ignore
 export const addOrder = (cartItems, totalAmount) => {
   return {
     type: ADD_ORDER,

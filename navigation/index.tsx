@@ -1,8 +1,3 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -14,12 +9,10 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Dimensions, Pressable } from 'react-native';
+import { ColorSchemeName } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
 import ProductsOverviewScreen from '../screens/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import {
@@ -33,8 +26,7 @@ import HeaderButton from '../components/UI/HeaderButton';
 import OrdersScreen from '../screens/OrdersScreen';
 import HeaderOrdersButton from '../components/UI/HeaderOrdersButton';
 import UserProductsScreen from '../user/UserProductsScreen';
-
-const { width } = Dimensions.get('window');
+import EditProductScreen from '../user/EditProductScreen';
 
 export default function Navigation({
   colorScheme,
@@ -51,10 +43,6 @@ export default function Navigation({
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Drawer = createDrawerNavigator();
@@ -90,8 +78,15 @@ function RootNavigator() {
           headerBackTitleStyle: {
             fontFamily: 'open-sans',
           },
-          headerRight: () => <HeaderButton navigation={navigation} />,
-          // headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              onPress={() => {
+                navigation.navigate('Cart');
+              }}
+              icon={'shopping-cart'}
+            />
+          ),
         })}
       />
 
@@ -99,6 +94,29 @@ function RootNavigator() {
         name='OrdersScreen'
         component={OrdersScreen}
         options={{ title: 'Your Order' }}
+      />
+      <Stack.Screen
+        name='EditProductScreen'
+        component={EditProductScreen}
+        options={({ route, navigation }) => ({
+          title: 'Add Product',
+          headerTitleStyle: {
+            fontFamily: 'open-sans-bold',
+            color: Colors.primary,
+          },
+          headerBackTitleStyle: {
+            fontFamily: 'open-sans',
+          },
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              onPress={() => {
+                navigation.navigate('UserProductsScreen');
+              }}
+              icon={'check'}
+            />
+          ),
+        })}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
@@ -118,10 +136,6 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
@@ -148,7 +162,16 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='pagelines' color={color} />
           ),
-          headerRight: () => <HeaderButton navigation={navigation} />,
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              onPress={() => {
+                // @ts-ignore
+                navigation.navigate('Cart');
+              }}
+              icon={'shopping-cart'}
+            />
+          ),
           headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
@@ -166,20 +189,26 @@ function BottomTabNavigator() {
             fontFamily: 'open-sans-bold',
           },
           tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
-          headerRight: () => <HeaderButton navigation={navigation} />,
-          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              onPress={() => {
+                // @ts-ignore
+                navigation.navigate('EditProductScreen');
+              }}
+              icon={'plus'}
+              path={'EditProductScreen'}
+            />
+          ),
         })}
       />
     </BottomTab.Navigator>
   );
 }
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={30} style={{ marginBottom: -10 }} {...props} />;
 }
