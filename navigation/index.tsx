@@ -32,6 +32,7 @@ import CartScreen from '../screens/CartScreen';
 import HeaderButton from '../components/UI/HeaderButton';
 import OrdersScreen from '../screens/OrdersScreen';
 import HeaderOrdersButton from '../components/UI/HeaderOrdersButton';
+import UserProductsScreen from '../user/UserProductsScreen';
 
 const { width } = Dimensions.get('window');
 
@@ -144,17 +145,27 @@ function BottomTabNavigator() {
             paddingHorizontal: 10,
             fontFamily: 'open-sans-bold',
           },
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='pagelines' color={color} />
+          ),
           headerRight: () => <HeaderButton navigation={navigation} />,
           headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
       <BottomTab.Screen
-        name='TabOne'
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+        name='UserProductsScreen'
+        component={UserProductsScreen}
+        options={({
+          navigation,
+        }: RootTabScreenProps<'UserProductsScreen'>) => ({
+          title: 'User Products',
+          headerTitleStyle: {
+            color: Colors.primary,
+            fontSize: 24,
+            paddingHorizontal: 10,
+            fontFamily: 'open-sans-bold',
+          },
+          tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
           headerRight: () => <HeaderButton navigation={navigation} />,
           headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
