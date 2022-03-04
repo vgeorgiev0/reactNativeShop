@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
 
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
@@ -8,6 +9,7 @@ import { Provider } from 'react-redux';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
 import ordersReducer from './store/reducers/order';
+import 'react-native-gesture-handler';
 
 const rootReducer = combineReducers({
   products: productsReducer,

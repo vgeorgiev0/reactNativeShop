@@ -8,7 +8,7 @@ import * as ordersActions from '../store/actions/order';
 
 interface CartScreen {}
 
-const CartScreen: React.FC<CartScreen> = () => {
+const CartScreen: React.FC<CartScreen> = (props: any) => {
   //@ts-ignore
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const cartItems = useSelector((state) => {
@@ -53,6 +53,7 @@ const CartScreen: React.FC<CartScreen> = () => {
           color={Colors.primary}
           onPress={() => {
             dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+            props.navigation.navigate('OrdersScreen');
           }}
           title='Order Now'
           disabled={cartItems.length === 0}
@@ -63,6 +64,7 @@ const CartScreen: React.FC<CartScreen> = () => {
         keyExtractor={(item) => item.productId}
         renderItem={(itemData) => (
           <CartItem
+            deletable
             amount={itemData.item.sum}
             quantity={itemData.item.quantity}
             title={

@@ -5,6 +5,8 @@
  */
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import {
   NavigationContainer,
   DefaultTheme,
@@ -28,6 +30,9 @@ import {
 import LinkingConfiguration from './LinkingConfiguration';
 import CartScreen from '../screens/CartScreen';
 import HeaderButton from '../components/UI/HeaderButton';
+import OrdersScreen from '../screens/OrdersScreen';
+import HeaderOrdersButton from '../components/UI/HeaderOrdersButton';
+import UserProductsScreen from '../user/UserProductsScreen';
 
 const { width } = Dimensions.get('window');
 
@@ -51,6 +56,8 @@ export default function Navigation({
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const Drawer = createDrawerNavigator();
 
 function RootNavigator() {
   return (
@@ -84,12 +91,14 @@ function RootNavigator() {
             fontFamily: 'open-sans',
           },
           headerRight: () => <HeaderButton navigation={navigation} />,
+          // headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
+
       <Stack.Screen
-        name='NotFound'
-        component={NotFoundScreen}
-        options={{ title: 'Oops!' }}
+        name='OrdersScreen'
+        component={OrdersScreen}
+        options={{ title: 'Your Order' }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
@@ -133,39 +142,34 @@ function BottomTabNavigator() {
           headerTitleStyle: {
             color: Colors.primary,
             fontSize: 24,
-            paddingHorizontal: 25,
+            paddingHorizontal: 10,
             fontFamily: 'open-sans-bold',
           },
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name='pagelines' color={color} />
+          ),
           headerRight: () => <HeaderButton navigation={navigation} />,
+          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
       <BottomTab.Screen
-        name='TabOne'
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
+        name='UserProductsScreen'
+        component={UserProductsScreen}
+        options={({
+          navigation,
+        }: RootTabScreenProps<'UserProductsScreen'>) => ({
+          title: 'User Products',
+          headerTitleStyle: {
+            color: Colors.primary,
+            fontSize: 24,
+            paddingHorizontal: 10,
+            fontFamily: 'open-sans-bold',
+          },
+          tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
           headerRight: () => <HeaderButton navigation={navigation} />,
+          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
-
-      {/* <BottomTab.Screen
-        name='TabTwo'
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-        }}
-      /> */}
-      {/* <BottomTab.Screen
-        name='ProductDetail'
-        component={ProductDetailScreen}
-        options={{
-          title: 'Product Detail',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-        }}
-      /> */}
     </BottomTab.Navigator>
   );
 }
