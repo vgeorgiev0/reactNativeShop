@@ -113,7 +113,7 @@ function RootNavigator() {
         name='EditProductScreen'
         component={EditProductScreen}
         options={{
-          title: 'Edit Products',
+          title: 'Add Product',
           headerTitleStyle: {
             fontFamily: 'open-sans-bold',
             color: Colors.primary,

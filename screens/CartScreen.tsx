@@ -34,12 +34,6 @@ const CartScreen: React.FC<CartScreen> = (props: any) => {
   });
   const dispatch = useDispatch();
 
-  const truncate = (string: string) => {
-    if (string.length > 16) {
-      string = string.substring(0, 17) + '..';
-    }
-  };
-
   return (
     <View style={styles.screen}>
       <View style={styles.summary}>

@@ -1,5 +1,4 @@
 import {
-  Button,
   Image,
   StyleSheet,
   Text,
@@ -9,7 +8,6 @@ import {
   Platform,
 } from 'react-native';
 import React from 'react';
-import Colors from '../../constants/Colors';
 
 type Props = {
   image: string;

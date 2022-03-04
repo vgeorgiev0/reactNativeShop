@@ -8,9 +8,10 @@ import * as productsActions from '../store/actions/products';
 const UserProductsScreen = (props: any) => {
   // @ts-ignore
   const userProducts = useSelector((state) => state.products.userProducts);
-  const editProductHandler = (id: string) => {
+  const editProductHandler = (id: string, title: string) => {
     props.navigation.navigate('EditProductScreen', {
       productId: id,
+      productTitle: title,
     });
   };
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const UserProductsScreen = (props: any) => {
         renderItem={(itemData) => (
           <ProductItem
             onSelect={() => {
-              editProductHandler(itemData.item.id);
+              editProductHandler(itemData.item.id, itemData.item.productTitle);
             }}
             price={itemData.item.price}
             title={itemData.item.title}
@@ -33,7 +34,10 @@ const UserProductsScreen = (props: any) => {
               color={Colors.primary}
               title='Edit'
               onPress={() => {
-                editProductHandler(itemData.item.id);
+                editProductHandler(
+                  itemData.item.id,
+                  itemData.item.productTitle
+                );
               }}
             />
             <Button
