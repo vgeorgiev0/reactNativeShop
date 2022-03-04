@@ -64,6 +64,7 @@ const CartScreen: React.FC<CartScreen> = (props: any) => {
         keyExtractor={(item) => item.productId}
         renderItem={(itemData) => (
           <CartItem
+            deletable
             amount={itemData.item.sum}
             quantity={itemData.item.quantity}
             title={

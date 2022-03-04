@@ -8,6 +8,7 @@ type Props = {
   title: string;
   amount: number;
   onRemove?: () => void;
+  deletable: boolean;
 };
 
 const CartItem = (props: Props) => {
@@ -20,9 +21,14 @@ const CartItem = (props: Props) => {
       </View>
       <View style={styles.itemData}>
         <Text style={styles.mainText}>${props.amount.toFixed(2)}</Text>
-        <TouchableOpacity onPress={props.onRemove} style={styles.deleteButton}>
-          <FontAwesome name='trash' size={25} color='red' />
-        </TouchableOpacity>
+        {props.deletable && (
+          <TouchableOpacity
+            onPress={props.onRemove}
+            style={styles.deleteButton}
+          >
+            <FontAwesome name='trash' size={25} color='red' />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
