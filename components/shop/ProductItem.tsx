@@ -15,8 +15,8 @@ type Props = {
   image: string;
   title: string;
   price: number;
-  onViewDetails: () => void | null;
-  onAddToCart: () => void | null;
+  onSelect: () => void | null;
+  children: any;
 };
 
 const ProductItem = (props: Props) => {
@@ -29,23 +29,12 @@ const ProductItem = (props: Props) => {
   return (
     <View style={styles.product}>
       <View style={styles.touchable}>
-        <TouchableCmp onPress={props.onViewDetails} useForeground>
+        <TouchableCmp onPress={props.onSelect} useForeground>
           <View>
             <Image style={styles.image} source={{ uri: props.image }} />
             <Text style={styles.title}>{props.title}</Text>
             <Text style={styles.price}>${props.price.toFixed(2)}</Text>
-            <View style={styles.buttonContainer}>
-              <Button
-                color={Colors.primary}
-                title='View Details'
-                onPress={props.onViewDetails}
-              />
-              <Button
-                color={Colors.primary}
-                title='Add to Cart'
-                onPress={props.onAddToCart}
-              />
-            </View>
+            <View style={styles.buttonContainer}>{props.children}</View>
           </View>
         </TouchableCmp>
       </View>

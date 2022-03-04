@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
 import CartItem from '../components/shop/CartItem';
 import * as cartActions from '../store/actions/cart';
-import * as ordersActions from '../store/actions/order';
+import * as ordersActions from '../store/actions/orders';
 
 interface CartScreen {}
 

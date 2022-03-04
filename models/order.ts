@@ -3,19 +3,19 @@
 import moment from 'moment';
 
 export interface OrderType {
-  id: any;
+  id: string;
   items: any;
   totalAmount: number;
   date: any;
 }
 
 class Order {
-  id: any;
+  id: string;
   items: any;
   totalAmount: number;
   date: any;
 
-  constructor(id: any, items: any, totalAmount: number, date: any) {
+  constructor(id: string, items: any, totalAmount: number, date: any) {
     this.id = id;
     this.items = items;
     this.totalAmount = totalAmount;
