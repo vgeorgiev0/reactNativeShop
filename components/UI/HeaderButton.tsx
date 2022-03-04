@@ -13,7 +13,7 @@ const HeaderButton: React.FC<HeaderButton> = (props: any) => {
   return (
     <View>
       <Pressable
-        onPress={() => props.navigation.navigate(props.path)}
+        onPress={props.onPress}
         style={({ pressed }) => ({
           opacity: pressed ? 0.5 : 1,
         })}
