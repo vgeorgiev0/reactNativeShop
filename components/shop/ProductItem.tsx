@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
     alignItems: 'center',
   },
 });

@@ -33,6 +33,7 @@ import HeaderButton from '../components/UI/HeaderButton';
 import OrdersScreen from '../screens/OrdersScreen';
 import HeaderOrdersButton from '../components/UI/HeaderOrdersButton';
 import UserProductsScreen from '../user/UserProductsScreen';
+import EditProductScreen from '../user/EditProductScreen';
 
 const { width } = Dimensions.get('window');
 
@@ -90,7 +91,15 @@ function RootNavigator() {
           headerBackTitleStyle: {
             fontFamily: 'open-sans',
           },
-          headerRight: () => <HeaderButton navigation={navigation} />,
+          // @ts-ignore
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              navigation={navigation}
+              path={'Cart'}
+              icon={'shopping-cart'}
+            />
+          ),
           // headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
@@ -99,6 +108,20 @@ function RootNavigator() {
         name='OrdersScreen'
         component={OrdersScreen}
         options={{ title: 'Your Order' }}
+      />
+      <Stack.Screen
+        name='EditProductScreen'
+        component={EditProductScreen}
+        options={{
+          title: 'Edit Products',
+          headerTitleStyle: {
+            fontFamily: 'open-sans-bold',
+            color: Colors.primary,
+          },
+          headerBackTitleStyle: {
+            fontFamily: 'open-sans',
+          },
+        }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
@@ -148,7 +171,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='pagelines' color={color} />
           ),
-          headerRight: () => <HeaderButton navigation={navigation} />,
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              navigation={navigation}
+              path={'Cart'}
+              icon={'shopping-cart'}
+            />
+          ),
           headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
@@ -166,8 +196,16 @@ function BottomTabNavigator() {
             fontFamily: 'open-sans-bold',
           },
           tabBarIcon: ({ color }) => <TabBarIcon name='user' color={color} />,
-          headerRight: () => <HeaderButton navigation={navigation} />,
-          headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
+          headerRight: () => (
+            <HeaderButton
+              // @ts-ignore
+              navigation={navigation}
+              icon={'plus'}
+              path={'EditProductScreen'}
+            />
+          ),
+
+          // headerLeft: () => <HeaderOrdersButton navigation={navigation} />,
         })}
       />
     </BottomTab.Navigator>
